@@ -1,0 +1,17 @@
+if (application.isWorker){
+
+  setInterval(function() {
+    console.log('Worker Process: ' + application.nodeId);
+    console.dir({ workers: application.workers });
+    console.log('---');
+  }, 5000);
+
+} else {
+
+  setInterval(function() {
+    console.log('Master Process: ' + application.nodeId);
+    console.dir({ workers: application.workers });
+    console.log('---');
+  }, 5000);
+
+}

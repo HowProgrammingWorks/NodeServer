@@ -1,0 +1,7 @@
+if (application.isWorker) {
+
+  setInterval(function() {
+    application.frontend.emit('test', { time: new Date() });
+  }, 5000);
+
+}

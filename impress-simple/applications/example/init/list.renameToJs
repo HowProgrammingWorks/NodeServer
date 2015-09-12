@@ -1,0 +1,12 @@
+application.state.data.car = {
+  name: 'name',
+  speed: 0
+};
+
+if (application.isWorker) {
+
+  setInterval(function() {
+    console.log('Data: ' + application.nodeId + ' ' + JSON.stringify(application.state.data.car));
+  }, 10000);
+
+}
