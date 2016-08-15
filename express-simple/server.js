@@ -1,25 +1,27 @@
-﻿var express = require('express');
-var app = express();
+'use strict';
 
-var me = { name: 'jura', age: 22 };
+let express = require('express');
+let app = express();
 
-app.get('/', function(req, res) {
+let me = { name: 'jura', age: 22 };
+
+app.get('/', (req, res) => {
   res.send('welcome to homepage');
   res.end();
 });
 
-app.get('/user', function(req, res) {
+app.get('/user', (req, res) => {
   res.send(me);
   res.end();
 });
 
-app.get('/user/name', function(req, res) {
+app.get('/user/name', (req, res) => {
   res.send(me.name);
   res.end();
 });
 
-app.get('/user/age', function(req, res) {
-  res.send(me.age+'');
+app.get('/user/age', (req, res) => {
+  res.send(me.age + '');
   res.end();
 });
 

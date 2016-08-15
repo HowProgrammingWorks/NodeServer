@@ -1,23 +1,26 @@
-﻿var http = require('http');
+'use strict';
 
-var me = { name: 'jura', age: 22 };
+let http = require('http');
 
-var routing = {
-  '/': 'welcome to homepage',
+let me = { name: 'jura', age: 22 };
+
+let routing = {
+  '/': '<h1>welcome to homepage</h1><hr>',
   '/user': me,
-  '/user/name': function() { return me.name; },
-  '/user/age': function() { return me.age; }
+  '/user/name': () => me.name,
+  '/user/age': () =>me.age,
+  '/hello': { hello: 'world', andArray: [1, 2, 3, 4, 5, 6, 7] }
 };
 
-var types = {
-  object: function(o) { return JSON.stringify(o); },
-  string: function(s) { return s; },
-  undefined: function() { return 'not found'; },
-  function: function(fn, req, res) { return fn(req, res) + ''; },
+let types = {
+  object: (o) => JSON.stringify(o),
+  string: (s) => s,
+  undefined: () => 'not found',
+  function: (fn, req, res) => fn(req, res) + '',
 };
 
-http.createServer(function (req, res) {
-  var data = routing[req.url],
+http.createServer((req, res) => {
+  let data = routing[req.url],
       result = types[typeof(data)](data, req, res);
   res.end(result);
 }).listen(80);

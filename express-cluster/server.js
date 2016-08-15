@@ -1,33 +1,35 @@
-﻿var express = require('express');
-var cluster = require('cluster');
-var os = require('os');
-var app = express();
+'use strict';
 
-var me = { name: 'jura', age: 22 };
+let os = require('os');
+let express = require('express');
+let cluster = require('cluster');
+let app = express();
+
+let me = { name: 'jura', age: 22 };
 
 if (cluster.isMaster) {
 
-  var count = os.cpus().length;
-  for (var i = 0; i < count; i++) cluster.fork();
+  let count = os.cpus().length;
+  for (let i = 0; i < count; i++) cluster.fork();
 
 } else {
 
-  app.get('/', function(req, res) {
+  app.get('/', (req, res) => {
     res.send('welcome to homepage');
     res.end();
   });
 
-  app.get('/user', function(req, res) {
+  app.get('/user', (req, res) => {
     res.send(me);
     res.end();
   });
 
-  app.get('/user/name', function(req, res) {
+  app.get('/user/name', (req, res) => {
     res.send(me.name);
     res.end();
   });
 
-  app.get('/user/age', function(req, res) {
+  app.get('/user/age', (req, res) => {
     res.send(me.age+'');
     res.end();
   });

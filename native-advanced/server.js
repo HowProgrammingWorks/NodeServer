@@ -1,36 +1,38 @@
-﻿var http = require('http');
+'use strict';
 
-var me = { name: 'jura', age: 22 };
+let http = require('http');
 
-var routing = {
+let me = { name: 'jura', age: 22 };
+
+let routing = {
   '/': 'welcome to homepage',
   '/user': me,
-  '/user/name': function() { return me.name; },
-  '/user/age': function() { return me.age; },
-  '/user/*': function(client, par) { return 'parameter=' + par[0]; }
+  '/user/name': () => me.name,
+  '/user/age': () => me.age,
+  '/user/*': (client, par) => 'parameter=' + par[0]
 };
 
-var types = {
-  object: function(o) { return JSON.stringify(o); },
-  string: function(s) { return s; },
-  number: function(n) { return n + ''; },
-  undefined: function() { return 'not found'; },
-  function: function(fn, par, client) { return fn(client, par); }
+let types = {
+  object: (o) => JSON.stringify(o),
+  string: (s) => s,
+  number: (n) => n + '',
+  undefined: () => 'not found',
+  function: (fn, par, client) => fn(client, par)
 };
 
-var matching = [];
-for (key in routing) {
+let matching = [];
+for (let key in routing) {
   if (key.indexOf('*') !== -1) {
-    var rx = new RegExp(key.replace('*', '(.*)'));
+    let rx = new RegExp(key.replace('*', '(.*)'));
     matching.push([rx, routing[key]]);
     delete routing[key];
   }
 }
 
 function router(client) {
-  var rx, par, route = routing[client.req.url];
+  let rx, par, route = routing[client.req.url];
   if (route === undefined) {
-    for (var i = 0, len = matching.length; i < len; i++) {
+    for (let i = 0, len = matching.length; i < len; i++) {
       rx = matching[i];
       par = client.req.url.match(rx[0]);
       if (par) {
@@ -40,10 +42,10 @@ function router(client) {
       }
     }
   }
-  var renderer = types[typeof(route)];
+  let renderer = types[typeof(route)];
   return renderer(route, par, client);
 }
 
-http.createServer(function (req, res) {
-  res.end(router({ req: req, res: res }) + '');
+http.createServer((req, res) => {
+  res.end(router({ req, res }) + '');
 }).listen(80);
