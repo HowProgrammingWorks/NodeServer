@@ -1,23 +1,24 @@
 'use strict';
 
-let http = require('http');
-let cluster = require('cluster');
-let os = require('os');
+global.api = {};
+api.http = require('http');
+api.cluster = require('cluster');
+api.os = require('os');
 
 let me = { name: 'jura', age: 22 };
 
 let routing = {
   '/': 'welcome to homepage',
   '/user': me,
-  '/user/name': () =>me.name,
+  '/user/name': () => me.name,
   '/user/age': () => me.age,
   '/user/*': (client, par) => 'parameter=' + par[0]
 };
 
 let types = {
-  object: (o) => JSON.stringify(o),
-  string: (s) => s,
-  number: (n) => n + '',
+  object: o => JSON.stringify(o),
+  string: s => s,
+  number: n => n + '',
   undefined: () => 'not found',
   function: (fn, par, client) => fn(client, par)
 };
@@ -48,11 +49,11 @@ function router(client) {
   return renderer(route, par, client);
 }
 
-if (cluster.isMaster) {
-  let count = os.cpus().length;
-  for (let i = 0; i < count; i++) cluster.fork();
+if (api.cluster.isMaster) {
+  let count = api.os.cpus().length;
+  for (let i = 0; i < count; i++) api.cluster.fork();
 } else {
-  http.createServer((req, res) => {
+  api.http.createServer((req, res) => {
     res.end(router({ req, res }) + '');
   }).listen(80);
 }
