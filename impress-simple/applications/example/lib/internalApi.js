@@ -35,11 +35,10 @@ api.news.getNext = function() {
   api.news.current++;
   if (api.news.current >= api.news.data.length) api.news.current = 0;
   return api.news.data[api.news.current];
-  
 };
 
 api.news.shuffle = function() {
-  api.impress.shuffle(api.news.data);
+  api.common.shuffle(api.news.data);
 };
 
 api.news.getItem = function(n) {
