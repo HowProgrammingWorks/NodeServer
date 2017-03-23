@@ -3,17 +3,17 @@
 global.api = {};
 api.http = require('http');
 
-let me = { name: 'jura', age: 22 };
+const user = { name: 'jura', age: 22 };
 
-let routing = {
+const routing = {
   '/': 'welcome to homepage',
-  '/user': me,
-  '/user/name': () => me.name,
-  '/user/age': () => me.age,
+  '/user': user,
+  '/user/name': () => user.name,
+  '/user/age': () => user.age,
   '/user/*': (client, par) => 'parameter=' + par[0]
 };
 
-let types = {
+const types = {
   object: o => JSON.stringify(o),
   string: s => s,
   number: n => n + '',
@@ -21,17 +21,19 @@ let types = {
   function: (fn, par, client) => fn(client, par)
 };
 
-let matching = [];
-for (let key in routing) {
-  if (key.indexOf('*') !== -1) {
-    let rx = new RegExp(key.replace('*', '(.*)'));
+const matching = [];
+let key, rx;
+for (key in routing) {
+  if (key.includes('*')) {
+    rx = new RegExp(key.replace('*', '(.*)'));
     matching.push([rx, routing[key]]);
     delete routing[key];
   }
 }
 
 function router(client) {
-  let rx, par, route = routing[client.req.url];
+  let rx, par;
+  let route = routing[client.req.url];
   if (route === undefined) {
     for (let i = 0, len = matching.length; i < len; i++) {
       rx = matching[i];
@@ -43,7 +45,7 @@ function router(client) {
       }
     }
   }
-  let renderer = types[typeof(route)];
+  const renderer = types[typeof(route)];
   return renderer(route, par, client);
 }
 

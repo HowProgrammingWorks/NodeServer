@@ -1,26 +1,46 @@
 'use strict';
 
-const http = require('http');
+global.api = {};
+api.http = require('http');
+api.timers = require('timers');
 
-let me = { name: 'jura', age: 22 };
+const user = { name: 'jura', age: 22 };
 
-let routing = {
+const routing = {
   '/': '<h1>welcome to homepage</h1><hr>',
-  '/user': me,
-  '/user/name': () => me.name,
-  '/user/age': () => me.age,
-  '/hello': { hello: 'world', andArray: [1, 2, 3, 4, 5, 6, 7] }
+  '/user': user,
+  '/user/name': () => user.name.toUpperCase(),
+  '/user/age': () => user.age,
+  '/hello': { hello: 'world', andArray: [1, 2, 3, 4, 5, 6, 7] },
+  '/api/method1': (req, res) => {
+    console.log(req.url + ' ' + res.statusCode);
+    return { status: res.statusCode };
+  },
+  '/api/method2': (req) => ({
+    user: user,
+    url: req.url,
+    cookie: req.headers.cookie
+  })
 };
 
-let types = {
+const types = {
   object: o => JSON.stringify(o),
   string: s => s,
   undefined: () => 'not found',
-  function: (fn, req, res) => fn(req, res) + '',
+  function: (fn, req, res) => JSON.stringify(fn(req, res))
 };
 
-http.createServer((req, res) => {
-  let data = routing[req.url],
-      result = types[typeof(data)](data, req, res);
-  res.end(result);
+api.http.createServer((req, res) => {
+  const data = routing[req.url];
+  res.end(types[typeof(data)](data, req, res));
 }).listen(80);
+
+/*
+  const data = routing[req.url];
+  const type = typeof(data);
+  const serializer = types[type];
+  const result = serializer(data, req, res);
+  res.end(result);
+*/
+
+api.timers.setInterval(() => user.age++, 2000);
