@@ -1,9 +1,9 @@
 {
   "name": "express-server-simple",
   "version": "1.0.0",
-  "description": "",
+  "description": "Express server example",
   "main": "server",
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "4.15.x"
   }
 }

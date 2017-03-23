@@ -1,9 +1,9 @@
 'use strict';
 
 const express = require('express');
-let app = express();
+const app = express();
 
-let me = { name: 'jura', age: 22 };
+const user = { name: 'jura', age: 22 };
 
 app.get('/', (req, res) => {
   res.send('welcome to homepage');
@@ -11,17 +11,17 @@ app.get('/', (req, res) => {
 });
 
 app.get('/user', (req, res) => {
-  res.send(me);
+  res.send(user);
   res.end();
 });
 
 app.get('/user/name', (req, res) => {
-  res.send(me.name);
+  res.send(user.name);
   res.end();
 });
 
 app.get('/user/age', (req, res) => {
-  res.send(me.age + '');
+  res.send(user.age.toString());
   res.end();
 });
 

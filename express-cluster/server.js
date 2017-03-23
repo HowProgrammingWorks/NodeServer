@@ -3,9 +3,9 @@
 const os = require('os');
 const express = require('express');
 const cluster = require('cluster');
-let app = express();
+const app = express();
 
-let me = { name: 'jura', age: 22 };
+const user = { name: 'jura', age: 22 };
 
 if (cluster.isMaster) {
 
@@ -20,17 +20,17 @@ if (cluster.isMaster) {
   });
 
   app.get('/user', (req, res) => {
-    res.send(me);
+    res.send(user);
     res.end();
   });
 
   app.get('/user/name', (req, res) => {
-    res.send(me.name);
+    res.send(user.name);
     res.end();
   });
 
   app.get('/user/age', (req, res) => {
-    res.send(me.age+'');
+    res.send(user.age + '');
     res.end();
   });
 
