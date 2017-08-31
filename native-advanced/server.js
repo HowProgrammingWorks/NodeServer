@@ -1,7 +1,6 @@
 'use strict';
 
-global.api = {};
-api.http = require('http');
+const http = require('http');
 
 const user = { name: 'jura', age: 22 };
 
@@ -22,10 +21,9 @@ const types = {
 };
 
 const matching = [];
-let key, rx;
-for (key in routing) {
+for (const key in routing) {
   if (key.includes('*')) {
-    rx = new RegExp(key.replace('*', '(.*)'));
+    const rx = new RegExp(key.replace('*', '(.*)'));
     matching.push([rx, routing[key]]);
     delete routing[key];
   }
@@ -49,6 +47,6 @@ function router(client) {
   return renderer(route, par, client);
 }
 
-api.http.createServer((req, res) => {
+http.createServer((req, res) => {
   res.end(router({ req, res }) + '');
 }).listen(80);

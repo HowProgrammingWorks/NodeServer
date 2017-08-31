@@ -1,9 +1,8 @@
 'use strict';
 
-global.api = {};
-api.http = require('http');
-api.cluster = require('cluster');
-api.os = require('os');
+const http = require('http');
+const cluster = require('cluster');
+const os = require('os');
 
 const user = { name: 'jura', age: 22 };
 const BASE_PORT = 80;
@@ -24,16 +23,16 @@ const types = {
 };
 
 const pid = process.pid;
-if (api.cluster.isMaster) {
-  let count = api.os.cpus().length;
+if (cluster.isMaster) {
+  const count = os.cpus().length;
   console.log(`Master pid: ${pid}`);
   console.log('Starting ' + count + ' forks');
-  for (let i = 0; i < count; i++) api.cluster.fork();
+  for (let i = 0; i < count; i++) cluster.fork();
 } else {
-  const id = api.cluster.worker.id;
+  const id = cluster.worker.id;
   const port = BASE_PORT + id;
   console.log(`Worker: ${id}, pid: ${pid}, port: ${port}`);
-  api.http.createServer((req, res) => {
+  http.createServer((req, res) => {
     const data = routing[req.url];
     res.setHeader('Process-Id', process.pid);
     res.end(types[typeof(data)](data, req, res));
