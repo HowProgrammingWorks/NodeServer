@@ -34,7 +34,9 @@ if (cluster.isMaster) {
   console.log(`Worker: ${id}, pid: ${pid}, port: ${port}`);
   http.createServer((req, res) => {
     const data = routing[req.url];
+    const type = typeof(data);
+    const serializer = types[type];
     res.setHeader('Process-Id', process.pid);
-    res.end(types[typeof(data)](data, req, res));
+    res.end(serializer(data, req, res));
   }).listen(port);
 }

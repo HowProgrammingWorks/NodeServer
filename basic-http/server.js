@@ -2,11 +2,15 @@
 
 const http = require('http');
 
-const user = { name: 'Marcus Aurelius', city: 'Rome', proffesion: 'imperor' };
+const user = {
+  name: 'Marcus Aurelius',
+  city: 'Rome',
+  proffesion: 'imperor'
+};
 
 const server = http.createServer((req, res) => {
   res.end(
-    `${user.name} said "C# is a crap!" and chiao from ${user.city}`
+    `${user.name} said "Java is a crap!" and chiao from ${user.city}`
   );
 });
 

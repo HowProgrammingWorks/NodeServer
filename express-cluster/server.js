@@ -9,7 +9,7 @@ const user = { name: 'jura', age: 22 };
 
 if (cluster.isMaster) {
 
-  let count = os.cpus().length;
+  const count = os.cpus().length;
   for (let i = 0; i < count; i++) cluster.fork();
 
 } else {

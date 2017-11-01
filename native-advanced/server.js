@@ -24,7 +24,8 @@ const matching = [];
 for (const key in routing) {
   if (key.includes('*')) {
     const rx = new RegExp(key.replace('*', '(.*)'));
-    matching.push([rx, routing[key]]);
+    const route = routing[key];
+    matching.push([rx, route]);
     delete routing[key];
   }
 }
@@ -43,7 +44,8 @@ function router(client) {
       }
     }
   }
-  const renderer = types[typeof(route)];
+  const type = typeof(route);
+  const renderer = types[type];
   return renderer(route, par, client);
 }
 
