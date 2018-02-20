@@ -9,7 +9,7 @@ const routing = {
   '/user': user,
   '/user/name': () => user.name,
   '/user/age': () => user.age,
-  '/user/*': (client, par) => 'parameter=' + par[0]
+  '/user/*': (client, par) => 'parameter=' + par[0],
 };
 
 const types = {
@@ -17,7 +17,7 @@ const types = {
   string: s => s,
   number: n => n + '',
   undefined: () => 'not found',
-  function: (fn, par, client) => fn(client, par)
+  function: (fn, par, client) => fn(client, par),
 };
 
 const matching = [];
@@ -51,4 +51,4 @@ function router(client) {
 
 http.createServer((req, res) => {
   res.end(router({ req, res }) + '');
-}).listen(80);
+}).listen(8000);
