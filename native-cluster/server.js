@@ -4,8 +4,10 @@ const http = require('http');
 const cluster = require('cluster');
 const os = require('os');
 
+const PORT = 2000;
+
 const user = { name: 'jura', age: 22 };
-const BASE_PORT = 80;
+const pid = process.pid;
 
 const routing = {
   '/': 'welcome to homepage',
@@ -22,7 +24,7 @@ const types = {
   function: (fn, par, client) => JSON.stringify(fn(client, par))
 };
 
-const pid = process.pid;
+
 if (cluster.isMaster) {
   const count = os.cpus().length;
   console.log(`Master pid: ${pid}`);
@@ -30,13 +32,12 @@ if (cluster.isMaster) {
   for (let i = 0; i < count; i++) cluster.fork();
 } else {
   const id = cluster.worker.id;
-  const port = BASE_PORT + id;
-  console.log(`Worker: ${id}, pid: ${pid}, port: ${port}`);
+  console.log(`Worker: ${id}, pid: ${pid}, port: ${PORT}`);
   http.createServer((req, res) => {
     const data = routing[req.url];
     const type = typeof(data);
     const serializer = types[type];
-    res.setHeader('Process-Id', process.pid);
+    res.setHeader('Process-Id', pid);
     res.end(serializer(data, req, res));
-  }).listen(port);
+  }).listen(PORT);
 }
