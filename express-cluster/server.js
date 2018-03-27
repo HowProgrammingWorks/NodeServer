@@ -15,23 +15,19 @@ if (cluster.isMaster) {
 } else {
 
   app.get('/', (req, res) => {
-    res.send('welcome to homepage');
-    res.end();
+    res.end('welcome to homepage');
   });
 
   app.get('/user', (req, res) => {
-    res.send(user);
-    res.end();
+    res.end(JSON.stringify(user));
   });
 
   app.get('/user/name', (req, res) => {
-    res.send(user.name);
-    res.end();
+    res.end(user.name);
   });
 
   app.get('/user/age', (req, res) => {
-    res.send(user.age + '');
-    res.end();
+    res.end(user.age + '');
   });
 
   app.listen(8000);

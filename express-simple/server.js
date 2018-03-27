@@ -6,23 +6,19 @@ const app = express();
 const user = { name: 'jura', age: 22 };
 
 app.get('/', (req, res) => {
-  res.send('welcome to homepage');
-  res.end();
+  res.end('welcome to homepage');
 });
 
 app.get('/user', (req, res) => {
-  res.send(user);
-  res.end();
+  res.end(JSON.stringify(user));
 });
 
 app.get('/user/name', (req, res) => {
-  res.send(user.name);
-  res.end();
+  res.end(user.name);
 });
 
 app.get('/user/age', (req, res) => {
-  res.send(user.age.toString());
-  res.end();
+  res.end(user.age.toString());
 });
 
 app.listen(8000);
