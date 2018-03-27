@@ -1,8 +1,0 @@
-{
-  "name": "native-simple",
-  "version": "1.0.0",
-  "description": "Simple HTTP server",
-  "main": "server",
-  "dependencies": {
-  }
-}
