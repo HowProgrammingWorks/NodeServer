@@ -24,7 +24,6 @@ const types = {
   function: (fn, par, client) => JSON.stringify(fn(client, par))
 };
 
-
 if (cluster.isMaster) {
   const count = os.cpus().length;
   console.log(`Master pid: ${pid}`);
