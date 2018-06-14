@@ -23,7 +23,7 @@ const routing = {
 
 const types = {
   object: ([data], callback) => callback(JSON.stringify(data)),
-  undefined: ([data], callback) => callback('not found'),
+  undefined: (args, callback) => callback('not found'),
   function: ([fn, req, res], callback) => {
     if (fn.length === 3) fn(req, res, callback);
     else callback(JSON.stringify(fn(req, res)));
