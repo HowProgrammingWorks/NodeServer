@@ -22,7 +22,7 @@ const routing = {
 };
 
 const types = {
-  object: o => JSON.stringify(o),
+  object: JSON.stringify,
   string: s => s,
   undefined: () => 'not found',
   function: (fn, req, res) => JSON.stringify(fn(req, res))
