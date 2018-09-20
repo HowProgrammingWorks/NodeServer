@@ -14,7 +14,7 @@ const routing = {
     console.log(req.url + ' ' + res.statusCode);
     return { status: res.statusCode };
   },
-  '/api/method2': (req) => ({
+  '/api/method2': req => ({
     user,
     url: req.url,
     cookie: req.headers.cookie

@@ -15,6 +15,8 @@ server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
 
-server.on('error', (e) => {
-  if (e.code === 'EACCES') console.log(`No access to port: ${port}`);
+server.on('error', err => {
+  if (err.code === 'EACCES') {
+    console.log(`No access to port: ${port}`);
+  }
 });
