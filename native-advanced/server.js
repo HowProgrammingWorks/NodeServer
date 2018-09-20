@@ -30,12 +30,12 @@ for (const key in routing) {
   }
 }
 
-function router(client) {
-  let rx, par;
+const router = client => {
+  let par;
   let route = routing[client.req.url];
-  if (route === undefined) {
-    for (let i = 0, len = matching.length; i < len; i++) {
-      rx = matching[i];
+  if (!route) {
+    for (let i = 0; i < matching.length; i++) {
+      const rx = matching[i];
       par = client.req.url.match(rx[0]);
       if (par) {
         par.shift();
@@ -47,7 +47,7 @@ function router(client) {
   const type = typeof route;
   const renderer = types[type];
   return renderer(route, par, client);
-}
+};
 
 http.createServer((req, res) => {
   res.end(router({ req, res }) + '');

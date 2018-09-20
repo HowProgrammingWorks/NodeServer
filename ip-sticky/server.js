@@ -9,7 +9,7 @@ const cpus = os.cpus().length;
 if (cluster.isMaster) {
 
   console.log(`Master pid: ${process.pid}`);
-  console.log('Starting ' + cpus + ' forks');
+  console.log(`Starting ${cpus} forks`);
 
   const workers = [];
 
@@ -18,9 +18,8 @@ if (cluster.isMaster) {
     workers.push(worker);
   }
 
-  const ipToInt = ip => (
-    ip.split('.').reduce((res, item) => (res << 8) + (+item), 0)
-  );
+  const ipToInt = ip => ip.split('.')
+    .reduce((res, item) => (res << 8) + (+item), 0);
 
   const balancer = socket => {
     const ip = ipToInt(socket.remoteAddress);
@@ -39,7 +38,7 @@ if (cluster.isMaster) {
   const dispatcher = (req, res) => {
     console.log(req.url);
     res.setHeader('Process-Id', process.pid);
-    res.end('Hello from worker ' + process.pid);
+    res.end(`Hello from worker ${process.pid}`);
   };
 
   const server = http.createServer(dispatcher);
