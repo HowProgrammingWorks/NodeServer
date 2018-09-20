@@ -27,7 +27,7 @@ const types = {
 console.log(`Worker: ${id}, pid: ${pid}, port: ${port}`);
 http.createServer((req, res) => {
   const data = routing[req.url];
-  const type = typeof(data);
+  const type = typeof data;
   const serializer = types[type];
   res.setHeader('Process-Id', process.pid);
   res.end(serializer(data, req, res));

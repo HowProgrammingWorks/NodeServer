@@ -44,7 +44,7 @@ function router(client) {
       }
     }
   }
-  const type = typeof(route);
+  const type = typeof route;
   const renderer = types[type];
   return renderer(route, par, client);
 }

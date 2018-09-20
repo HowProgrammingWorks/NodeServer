@@ -30,7 +30,7 @@ const types = {
 
 http.createServer((req, res) => {
   const data = routing[req.url];
-  const type = typeof(data);
+  const type = typeof data;
   const serializer = types[type];
   const result = serializer(data, req, res);
   res.end(result);
@@ -38,7 +38,7 @@ http.createServer((req, res) => {
 
 // http.createServer((req, res) => {
 //   const data = routing[req.url];
-//   res.end(types[typeof(data)](data, req, res));
+//   res.end(types[typeof data](data, req, res));
 // }).listen(8000);
 
 setInterval(() => user.age++, 2000);

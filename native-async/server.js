@@ -31,7 +31,7 @@ const types = {
 };
 
 const serve = (data, req, res) => {
-  const type = typeof(data);
+  const type = typeof data;
   if (type === 'string') return res.end(data);
   const serializer = types[type];
   serializer([data, req, res], data => serve(data, req, res));
