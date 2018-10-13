@@ -18,14 +18,14 @@ const routing = {
     user,
     url: req.url,
     cookie: req.headers.cookie
-  })
+  }),
 };
 
 const types = {
   object: JSON.stringify,
   string: s => s,
   undefined: () => 'not found',
-  function: (fn, req, res) => JSON.stringify(fn(req, res))
+  function: (fn, req, res) => JSON.stringify(fn(req, res)),
 };
 
 http.createServer((req, res) => {

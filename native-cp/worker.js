@@ -13,7 +13,7 @@ const routing = {
   '/': 'welcome to homepage',
   '/user': user,
   '/user/name': () => user.name,
-  '/user/age': () => user.age
+  '/user/age': () => user.age,
 };
 
 const types = {
@@ -21,7 +21,7 @@ const types = {
   string: s => s,
   number: n => n.toString(),
   undefined: () => 'not found',
-  function: (fn, par, client) => JSON.stringify(fn(client, par))
+  function: (fn, par, client) => JSON.stringify(fn(client, par)),
 };
 
 console.log(`Worker: ${id}, pid: ${pid}, port: ${port}`);

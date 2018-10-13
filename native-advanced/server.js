@@ -9,7 +9,7 @@ const routing = {
   '/user': user,
   '/user/name': () => user.name,
   '/user/age': () => user.age,
-  '/user/*': (client, par) => 'parameter=' + par[0]
+  '/user/*': (client, par) => 'parameter=' + par[0],
 };
 
 const types = {

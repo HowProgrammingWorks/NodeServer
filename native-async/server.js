@@ -17,8 +17,8 @@ const routing = {
   '/api/method2': req => ({
     user,
     url: req.url,
-    cookie: req.headers.cookie
-  })
+    cookie: req.headers.cookie,
+  }),
 };
 
 const types = {
@@ -27,7 +27,7 @@ const types = {
   function: ([fn, req, res], callback) => {
     if (fn.length === 3) fn(req, res, callback);
     else callback(JSON.stringify(fn(req, res)));
-  }
+  },
 };
 
 const serve = (data, req, res) => {

@@ -5,7 +5,7 @@ const http = require('http');
 const user = {
   name: 'Marcus Aurelius',
   city: 'Rome',
-  proffesion: 'emperor'
+  proffesion: 'emperor',
 };
 
 const server = http.createServer((req, res) => {
