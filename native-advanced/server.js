@@ -9,6 +9,7 @@ const routing = {
   '/user': user,
   '/user/name': () => user.name,
   '/user/age': () => user.age,
+  // client is passed but never used
   '/user/*': (client, par) => 'parameter=' + par[0],
 };
 
@@ -20,12 +21,19 @@ const types = {
   function: (fn, par, client) => fn(client, par),
 };
 
-const matching = [];
+let matching
 for (const key in routing) {
   if (key.includes('*')) {
     const rx = new RegExp(key.replace('*', '(.*)'));
     const route = routing[key];
-    matching.push([rx, route]);
+
+    /* I did it like that because we have to make variable matching make global.
+    * if it would be const [...matching] = [rx, route] it could not be seen in function route
+    * i made it cause matching was two-dimential array
+    */
+
+    (function f() {return [...matching] = [rx, route]})();
+
     delete routing[key];
   }
 }
@@ -34,16 +42,17 @@ const router = client => {
   let par;
   let route = routing[client.req.url];
   if (!route) {
-    for (let i = 0; i < matching.length; i++) {
-      const rx = matching[i];
-      par = client.req.url.match(rx[0]);
-      if (par) {
-        par.shift();
-        route = rx[1];
-        break;
-      }
+    const rx = matching[0]
+    par = client.req.url.match(rx);
+    if (par) {
+      par.shift();
+      route = matching[1];
     }
   }
+
+  /* Why do we have to check type of route
+   if route is always 'function'? */
+
   const type = typeof route;
   const renderer = types[type];
   return renderer(route, par, client);
