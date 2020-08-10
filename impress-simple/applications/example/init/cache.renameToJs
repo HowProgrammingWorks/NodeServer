@@ -1,7 +1,0 @@
-api.timers.setInterval(function() {
-  console.dir({
-    files: application.cache.files, // Object.keys(
-    //static: application.cache.static,
-    //folders: application.cache.folders
-  });
-}, 5000);
