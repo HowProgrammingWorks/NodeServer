@@ -18,10 +18,10 @@ if (cluster.isMaster) {
     workers.push(worker);
   }
 
-  const ipToInt = ip => ip.split('.')
+  const ipToInt = (ip) => ip.split('.')
     .reduce((res, item) => (res << 8) + (+item), 0);
 
-  const balancer = socket => {
+  const balancer = (socket) => {
     const ip = ipToInt(socket.remoteAddress);
     const id = Math.abs(ip) % cpus;
     const worker = workers[id];

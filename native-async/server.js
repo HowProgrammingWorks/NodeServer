@@ -14,7 +14,7 @@ const routing = {
     console.log(req.url + ' ' + res.statusCode);
     callback({ status: res.statusCode });
   },
-  '/api/method2': req => ({
+  '/api/method2': (req) => ({
     user,
     url: req.url,
     cookie: req.headers.cookie,
@@ -34,7 +34,7 @@ const serve = (data, req, res) => {
   const type = typeof data;
   if (type === 'string') return res.end(data);
   const serializer = types[type];
-  serializer([data, req, res], data => serve(data, req, res));
+  serializer([data, req, res], (data) => serve(data, req, res));
 };
 
 http.createServer((req, res) => {

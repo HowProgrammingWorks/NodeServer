@@ -14,8 +14,8 @@ const routing = {
 
 const types = {
   object: JSON.stringify,
-  string: s => s,
-  number: n => n + '',
+  string: (s) => s,
+  number: (n) => n + '',
   undefined: () => 'not found',
   function: (fn, par, client) => fn(client, par),
 };
@@ -30,7 +30,7 @@ for (const key in routing) {
   }
 }
 
-const router = client => {
+const router = (client) => {
   let par;
   let route = routing[client.req.url];
   if (!route) {

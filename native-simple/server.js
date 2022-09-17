@@ -14,7 +14,7 @@ const routing = {
     console.log(req.url + ' ' + res.statusCode);
     return { status: res.statusCode };
   },
-  '/api/method2': req => ({
+  '/api/method2': (req) => ({
     user,
     url: req.url,
     cookie: req.headers.cookie
@@ -23,7 +23,7 @@ const routing = {
 
 const types = {
   object: JSON.stringify,
-  string: s => s,
+  string: (s) => s,
   undefined: () => 'not found',
   function: (fn, req, res) => JSON.stringify(fn(req, res)),
 };
