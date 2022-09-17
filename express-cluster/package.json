@@ -4,6 +4,6 @@
   "description": "Express server example with clustering",
   "main": "server",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.18.1"
   }
 }
