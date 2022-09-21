@@ -1,8 +1,8 @@
 'use strict';
 
-const http = require('http');
-const cluster = require('cluster');
-const os = require('os');
+const http = require('node:http');
+const cluster = require('node:cluster');
+const os = require('node:os');
 
 const PORT = 2000;
 

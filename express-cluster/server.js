@@ -1,8 +1,8 @@
 'use strict';
 
-const os = require('os');
+const os = require('node:os');
+const cluster = require('node:cluster');
 const express = require('express');
-const cluster = require('cluster');
 const app = express();
 
 const user = { name: 'jura', age: 22 };

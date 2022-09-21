@@ -1,7 +1,7 @@
 'use strict';
 
-const cp = require('child_process');
-const os = require('os');
+const os = require('node:os');
+const cp = require('node:child_process');
 
 const pid = process.pid;
 const count = os.cpus().length;

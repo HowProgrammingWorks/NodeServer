@@ -1,6 +1,6 @@
 'use strict';
 
-const http = require('http');
+const http = require('node:http');
 
 const hostname = '127.0.0.1';
 const port = 8000;

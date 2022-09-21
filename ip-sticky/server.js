@@ -1,9 +1,9 @@
 'use strict';
 
-const os = require('os');
-const net = require('net');
-const http = require('http');
-const cluster = require('cluster');
+const os = require('node:os');
+const net = require('node:net');
+const http = require('node:http');
+const cluster = require('node:cluster');
 const cpus = os.cpus().length;
 
 if (cluster.isMaster) {
