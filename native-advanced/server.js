@@ -2,6 +2,7 @@
 
 const http = require('node:http');
 
+const PORT = 8000;
 const user = { name: 'jura', age: 22 };
 
 const routing = {
@@ -51,6 +52,6 @@ const router = (client) => {
 
 http.createServer((req, res) => {
   res.end(`${router({ req, res })}`);
-}).listen(8000);
+}).listen(PORT);
 
-console.log('Running server on port 8000')
+console.log(`Running server on port ${PORT}`)
