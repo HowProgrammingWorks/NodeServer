@@ -34,7 +34,10 @@ const serve = (data, req, res) => {
   const type = typeof data;
   if (type === 'string') return res.end(data);
   const serializer = types[type];
-  serializer([data, req, res], (data) => serve(data, req, res));
+  serializer(
+    [data, req, res], 
+    (data2) => serve(data2, req, res)  // callback in `types` function
+  );
 };
 
 http.createServer((req, res) => {
