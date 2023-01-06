@@ -2,6 +2,7 @@
 
 const http = require('node:http');
 
+const PORT = 8000;
 const user = { name: 'jura', age: 22 };
 
 const routing = {
@@ -9,7 +10,7 @@ const routing = {
   '/user': user,
   '/user/name': () => user.name,
   '/user/age': () => user.age,
-  '/user/*': (client, par) => 'parameter=' + par[0],
+  '/user/*': (client, params) => 'parameter=' + params[0],
 };
 
 const types = {
@@ -17,7 +18,7 @@ const types = {
   string: (s) => s,
   number: (n) => n + '',
   undefined: () => 'not found',
-  function: (fn, par, client) => fn(client, par),
+  function: (fn, params, client) => fn(client, params),
 };
 
 const matching = [];
@@ -31,14 +32,14 @@ for (const key in routing) {
 }
 
 const router = (client) => {
-  let par;
-  let route = routing[client.req.url];
+  const { req: { url } } = client;
+  let route = routing[url];
+  const params = [];
   if (!route) {
-    for (let i = 0; i < matching.length; i++) {
-      const rx = matching[i];
-      par = client.req.url.match(rx[0]);
-      if (par) {
-        par.shift();
+    for (const rx of matching) {
+      params = url.match(rx[0]);
+      if (params) {
+        params.shift();
         route = rx[1];
         break;
       }
@@ -46,9 +47,11 @@ const router = (client) => {
   }
   const type = typeof route;
   const renderer = types[type];
-  return renderer(route, par, client);
+  return renderer(route, params, client);
 };
 
 http.createServer((req, res) => {
-  res.end(router({ req, res }) + '');
-}).listen(8000);
+  res.end(`${router({ req, res })}`);
+}).listen(PORT);
+
+console.log(`Running server on port ${PORT}`)
