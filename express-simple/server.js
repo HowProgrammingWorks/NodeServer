@@ -1,6 +1,6 @@
 'use strict';
 
-const express = require('node:express');
+const express = require('express');
 const app = express();
 
 const user = { name: 'jura', age: 22 };
