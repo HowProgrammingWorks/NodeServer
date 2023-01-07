@@ -23,7 +23,7 @@ if (cluster.isMaster) {
 
   const balancer = (socket) => {
     const ip = ipToInt(socket.remoteAddress);    
-    const id = Math.abs(ip) % cpus;
+    const id = ip % cpus;
     const worker = workers[id];
     if (worker) worker.send({ name: 'socket' }, socket);
   };
