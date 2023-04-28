@@ -24,7 +24,7 @@ const types = {
   function: (fn, par, client) => JSON.stringify(fn(client, par)),
 };
 
-if (cluster.isMaster) {
+if (cluster.isPrimary) {
   const count = os.cpus().length;
   console.log(`Master pid: ${pid}`);
   console.log(`Starting ${count} forks`);

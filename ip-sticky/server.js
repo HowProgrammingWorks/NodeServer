@@ -6,8 +6,7 @@ const http = require('node:http');
 const cluster = require('node:cluster');
 const cpus = os.cpus().length;
 
-if (cluster.isMaster) {
-
+if (cluster.isPrimary) {
   console.log(`Master pid: ${process.pid}`);
   console.log(`Starting ${cpus} forks`);
 
@@ -30,9 +29,7 @@ if (cluster.isMaster) {
 
   const server = new net.Server(balancer);
   server.listen(2000);
-
 } else {
-
   console.log(`Worker pid: ${process.pid}`);
 
   const dispatcher = (req, res) => {
@@ -50,5 +47,4 @@ if (cluster.isMaster) {
       server.emit('connection', socket);
     }
   });
-
 }
