@@ -14,7 +14,7 @@ const routing = {
 };
 
 const types = {
-  object: JSON.stringify,
+  object: (o) => JSON.stringify(o),
   string: (s) => s,
   number: (n) => n + '',
   undefined: () => 'not found',
@@ -54,4 +54,4 @@ http.createServer((req, res) => {
   res.end(`${router({ req, res })}`);
 }).listen(PORT);
 
-console.log(`Running server on port ${PORT}`)
+console.log(`Running server on port ${PORT}`);
