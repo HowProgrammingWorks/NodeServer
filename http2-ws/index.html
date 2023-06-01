@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Page example</h1>
+<div id="log"></div>
+<style>
+input { border: 1px solid green; }
+</style>
+<script>
+  const log = document.getElementById('log');
+
+  const writeLine = (text) => {
+    const line = document.createElement('div');
+    line.innerHTML = `<p>${text}</p>`;
+    log.appendChild(line);
+  };
+
+  const socket = new WebSocket('wss://127.0.0.1:8000');
+
+  socket.addEventListener('open', () => {
+    socket.send('Hello!');
+    writeLine('connected');
+  });
+
+  socket.addEventListener('close', () => {
+    writeLine('closed');
+  });
+
+  socket.addEventListener('message', ({ data }) => {
+    writeLine(data);
+  });
+</script>
+</body>
+</html>
