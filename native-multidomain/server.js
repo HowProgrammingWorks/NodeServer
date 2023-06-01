@@ -55,8 +55,17 @@ const server = https.createServer(options, (req, res) => {
   server.addContext('localhost', creds);
 }
 
+{
+  const key = fs.readFileSync('./cert/key.pem');
+  const cert = fs.readFileSync('./cert/cert.pem');
+  const creds = { key, cert };
+  server.addContext('*', creds);
+}
+
 server.listen(8000);
 console.log('Open: https://127.0.0.1:8000');
 console.log('   or https://localhost:8000');
+
+console.log({ 'server._contexts': server._contexts });
 
 setInterval(() => user.age++, 2000);
