@@ -45,7 +45,7 @@ const sni = (servername, callback) => {
   callback(null, creds);
 };
 
-const options = { key, cert, SNICallback: sni };
+const options = { SNICallback: sni };
 
 const server = https.createServer(options, (req, res) => {
   const data = routing[req.url];
