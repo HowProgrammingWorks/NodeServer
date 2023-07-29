@@ -34,7 +34,7 @@ for (const key in routing) {
 const router = (client) => {
   const { req: { url } } = client;
   let route = routing[url];
-  const params = [];
+  let params = [];
   if (!route) {
     for (const rx of matching) {
       params = url.match(rx[0]);
@@ -54,4 +54,4 @@ http.createServer((req, res) => {
   res.end(`${router({ req, res })}`);
 }).listen(PORT);
 
-console.log(`Running server on port ${PORT}`)
+console.log(`Running server on port ${PORT}`);
