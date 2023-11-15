@@ -27,7 +27,7 @@ if (cluster.isPrimary) {
     if (worker) worker.send({ name: 'socket' }, socket);
   };
 
-  const server = new net.Server(balancer);
+  const server = new net.Server({ pauseOnConnect: true }, balancer);
   server.listen(2000);
 } else {
   console.log(`Worker pid: ${process.pid}`);
@@ -45,6 +45,7 @@ if (cluster.isPrimary) {
     if (message.name === 'socket') {
       socket.server = server;
       server.emit('connection', socket);
+      socket.resume();
     }
   });
 }
