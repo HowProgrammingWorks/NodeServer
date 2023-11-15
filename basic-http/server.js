@@ -9,6 +9,9 @@ const user = {
 };
 
 const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.writeHead(400, { 'Content-Type': 'text/plain' });
+  res.end('111');
   res.end(
     `${user.name} said "Java is a crap!" and chiao from ${user.city}`
   );

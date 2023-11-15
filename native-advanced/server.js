@@ -54,4 +54,4 @@ http.createServer((req, res) => {
   res.end(`${router({ req, res })}`);
 }).listen(PORT);
 
-console.log(`Running server on port ${PORT}`)
+console.log(`Running server on port ${PORT}`);
