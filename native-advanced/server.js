@@ -32,7 +32,7 @@ for (const key in routing) {
 }
 
 const router = (client) => {
-  const { req: { url } } = client;
+  const { url } = client.req;
   let route = routing[url];
   const params = [];
   if (!route) {
