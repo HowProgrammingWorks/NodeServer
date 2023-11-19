@@ -18,7 +18,7 @@ if (cluster.isPrimary) {
   }
 
   const ipToInt = (ip) => ip.split('.')
-    .reduce((res, item) => res * 256 + parseInt(item), 0);    
+    .reduce((res, item) => res * 256 + parseInt(item), 0);
 
   const balancer = (socket) => {
     const ip = ipToInt(socket.remoteAddress);
