@@ -32,9 +32,9 @@ for (const key in routing) {
 }
 
 const router = (client) => {
-  const { req: { url } } = client;
+  const { url } = client.req;
   let route = routing[url];
-  let params = [];
+  const params = [];
   if (!route) {
     for (const rx of matching) {
       params = url.match(rx[0]);
