@@ -14,7 +14,7 @@ const routing = {
 };
 
 const types = {
-  object: JSON.stringify,
+  object: (o) => JSON.stringify(o),
   string: (s) => s,
   number: (n) => n + '',
   undefined: () => 'not found',
@@ -34,7 +34,7 @@ for (const key in routing) {
 const router = (client) => {
   const { url } = client.req;
   let route = routing[url];
-  const params = [];
+  let params = [];
   if (!route) {
     for (const rx of matching) {
       params = url.match(rx[0]);
