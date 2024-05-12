@@ -5,6 +5,6 @@
   "description": "HTTP2 and Websocket Example",
   "license": "MIT",
   "dependencies": {
-    "ws": "^8.13.0"
+    "ws": "^8.17.0"
   }
 }
