@@ -3,6 +3,8 @@
 const fs = require('node:fs');
 const https = require('node:https');
 
+const PORT = 8000;
+
 const user = { name: 'jura', age: 22 };
 
 const routing = {
@@ -62,9 +64,9 @@ const server = https.createServer(options, (req, res) => {
   server.addContext('*', creds);
 }
 
-server.listen(8000);
-console.log('Open: https://127.0.0.1:8000');
-console.log('   or https://localhost:8000');
+server.listen(PORT);
+console.log(`Open: https://127.0.0.1:${PORT}`);
+console.log(`   or https://localhost:${PORT}`);
 
 console.log({ 'server._contexts': server._contexts });
 

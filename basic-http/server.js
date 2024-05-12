@@ -2,6 +2,8 @@
 
 const http = require('node:http');
 
+const PORT = 8000;
+
 const user = {
   name: 'Marcus Aurelius',
   city: 'Rome',
@@ -21,4 +23,4 @@ server.on('clientError', (err, socket) => {
   socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
 });
 
-server.listen(8000);
+server.listen(PORT);

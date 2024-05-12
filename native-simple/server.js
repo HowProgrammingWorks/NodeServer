@@ -2,6 +2,8 @@
 
 const http = require('node:http');
 
+const PORT = 8000;
+
 const user = { name: 'jura', age: 22 };
 
 const routing = {
@@ -34,11 +36,11 @@ http.createServer((req, res) => {
   const serializer = types[type];
   const result = serializer(data, req, res);
   res.end(result);
-}).listen(8000);
+}).listen(PORT);
 
 // http.createServer((req, res) => {
 //   const data = routing[req.url];
 //   res.end(types[typeof data](data, req, res));
-// }).listen(8000);
+// }).listen(PORT);
 
 setInterval(() => user.age++, 2000);

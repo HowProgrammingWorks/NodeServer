@@ -2,6 +2,9 @@
 
 const http = require('node:http');
 
+const PORT = 8000;
+const HANDLER_LENGTH = 3;
+
 const user = { name: 'jura', age: 22 };
 
 const routing = {
@@ -25,7 +28,7 @@ const types = {
   object: ([data], callback) => callback(JSON.stringify(data)),
   undefined: (args, callback) => callback('not found'),
   function: ([fn, req, res], callback) => {
-    if (fn.length === 3) fn(req, res, callback);
+    if (fn.length === HANDLER_LENGTH) fn(req, res, callback);
     else callback(JSON.stringify(fn(req, res)));
   },
 };
@@ -40,6 +43,6 @@ const serve = (data, req, res) => {
 http.createServer((req, res) => {
   const data = routing[req.url];
   serve(data, req, res);
-}).listen(8000);
+}).listen(PORT);
 
 setInterval(() => user.age++, 2000);

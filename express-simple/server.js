@@ -3,6 +3,8 @@
 const express = require('express');
 const app = express();
 
+const PORT = 8000;
+
 const user = { name: 'jura', age: 22 };
 
 app.get('/', (req, res) => {
@@ -21,4 +23,4 @@ app.get('/user/age', (req, res) => {
   res.end(user.age.toString());
 });
 
-app.listen(8000);
+app.listen(PORT);

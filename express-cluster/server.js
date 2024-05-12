@@ -5,6 +5,8 @@ const cluster = require('node:cluster');
 const express = require('express');
 const app = express();
 
+const PORT = 8000;
+
 const user = { name: 'jura', age: 22 };
 
 if (cluster.isPrimary) {
@@ -27,5 +29,5 @@ if (cluster.isPrimary) {
     res.end(user.age + '');
   });
 
-  app.listen(8000);
+  app.listen(PORT);
 }

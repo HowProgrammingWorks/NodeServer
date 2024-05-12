@@ -4,6 +4,8 @@ const fs = require('node:fs');
 const http2 = require('node:http2');
 const WebSocket = require('ws');
 
+const PORT = 8000;
+
 const index = fs.readFileSync('./index.html', 'utf8');
 const user = { name: 'jura', age: 22 };
 
@@ -43,8 +45,8 @@ const server = http2.createSecureServer(options, (req, res) => {
   res.end(result);
 });
 
-server.listen(8000);
-console.log('Open: https://127.0.0.1:8000');
+server.listen(PORT);
+console.log(`Open: https://127.0.0.1:${PORT}`);
 
 const ws = new WebSocket.Server({ server });
 

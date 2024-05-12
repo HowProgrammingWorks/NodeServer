@@ -2,8 +2,8 @@
 
 const http = require('node:http');
 
-const hostname = '127.0.0.1';
-const port = 8000;
+const HOST = '127.0.0.1';
+const PORT = 8000;
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
@@ -11,12 +11,12 @@ const server = http.createServer((req, res) => {
   res.end('Hello World\n');
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+server.listen(PORT, HOST, () => {
+  console.log(`Server running at http://${HOST}:${PORT}/`);
 });
 
 server.on('error', (err) => {
   if (err.code === 'EACCES') {
-    console.log(`No access to port: ${port}`);
+    console.log(`No access to port: ${PORT}`);
   }
 });

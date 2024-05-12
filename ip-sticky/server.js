@@ -6,6 +6,8 @@ const http = require('node:http');
 const cluster = require('node:cluster');
 const cpus = os.cpus().length;
 
+const PORT = 2000;
+
 if (cluster.isPrimary) {
   console.log(`Master pid: ${process.pid}`);
   console.log(`Starting ${cpus} forks`);
@@ -28,7 +30,7 @@ if (cluster.isPrimary) {
   };
 
   const server = new net.Server({ pauseOnConnect: true }, balancer);
-  server.listen(2000);
+  server.listen(PORT);
 } else {
   console.log(`Worker pid: ${process.pid}`);
 
