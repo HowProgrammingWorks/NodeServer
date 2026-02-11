@@ -16,7 +16,8 @@ const server = http.createServer((req, res) => {
   res.end(`${name} said "Java is a crap!" and ciao from ${city}`);
 });
 
-server.on('clientError', (err, socket) => {
+server.on('clientError', (error, socket) => {
+  if (error) throw error;
   socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
 });
 

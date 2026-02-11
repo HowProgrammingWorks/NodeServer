@@ -32,11 +32,13 @@ if (cluster.isPrimary) {
 } else {
   const id = cluster.worker.id;
   console.log(`Worker: ${id}, pid: ${pid}, port: ${PORT}`);
-  http.createServer((req, res) => {
-    const data = routing[req.url];
-    const type = typeof data;
-    const serializer = types[type];
-    res.setHeader('Process-Id', pid);
-    res.end(serializer(data, req, res));
-  }).listen(PORT);
+  http
+    .createServer((req, res) => {
+      const data = routing[req.url];
+      const type = typeof data;
+      const serializer = types[type];
+      res.setHeader('Process-Id', pid);
+      res.end(serializer(data, req, res));
+    })
+    .listen(PORT);
 }

@@ -20,7 +20,7 @@ const routing = {
   '/api/method2': (req) => ({
     user,
     url: req.url,
-    cookie: req.headers.cookie
+    cookie: req.headers.cookie,
   }),
 };
 

@@ -21,7 +21,7 @@ const routing = {
   '/api/method2': (req) => ({
     user,
     url: req.url,
-    cookie: req.headers.cookie
+    cookie: req.headers.cookie,
   }),
 };
 
@@ -37,7 +37,7 @@ const cert = fs.readFileSync('./cert/cert.pem');
 
 const domains = {
   '127.0.0.1': tls.createSecureContext({ key, cert }),
-  'localhost': tls.createSecureContext({ key, cert }),
+  localhost: tls.createSecureContext({ key, cert }),
 };
 
 const sni = (servername, callback) => {
@@ -56,7 +56,6 @@ const server = https.createServer(options, (req, res) => {
   const result = serializer(data, req, res);
   res.end(result);
 });
-
 
 server.listen(PORT);
 console.log(`Open: https://127.0.0.1:${PORT}`);

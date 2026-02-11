@@ -35,13 +35,15 @@ const prepareFile = async (url) => {
   return { found, ext, stream };
 };
 
-http.createServer(async (req, res) => {
-  const file = await prepareFile(req.url);
-  const statusCode = file.found ? 200 : 404;
-  const mimeType = MIME_TYPES[file.ext] || MIME_TYPES.default;
-  res.writeHead(statusCode, { 'Content-Type': mimeType });
-  file.stream.pipe(res);
-  console.log(`${req.method} ${req.url} ${statusCode}`);
-}).listen(PORT);
+http
+  .createServer(async (req, res) => {
+    const file = await prepareFile(req.url);
+    const statusCode = file.found ? 200 : 404;
+    const mimeType = MIME_TYPES[file.ext] || MIME_TYPES.default;
+    res.writeHead(statusCode, { 'Content-Type': mimeType });
+    file.stream.pipe(res);
+    console.log(`${req.method} ${req.url} ${statusCode}`);
+  })
+  .listen(PORT);
 
 console.log(`Server running at http://127.0.0.1:${PORT}/`);

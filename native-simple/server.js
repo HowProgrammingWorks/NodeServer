@@ -19,7 +19,7 @@ const routing = {
   '/api/method2': (req) => ({
     user,
     url: req.url,
-    cookie: req.headers.cookie
+    cookie: req.headers.cookie,
   }),
 };
 
@@ -30,13 +30,15 @@ const types = {
   function: (fn, req, res) => JSON.stringify(fn(req, res)),
 };
 
-http.createServer((req, res) => {
-  const data = routing[req.url];
-  const type = typeof data;
-  const serializer = types[type];
-  const result = serializer(data, req, res);
-  res.end(result);
-}).listen(PORT);
+http
+  .createServer((req, res) => {
+    const data = routing[req.url];
+    const type = typeof data;
+    const serializer = types[type];
+    const result = serializer(data, req, res);
+    res.end(result);
+  })
+  .listen(PORT);
 
 // http.createServer((req, res) => {
 //   const data = routing[req.url];

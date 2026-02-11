@@ -40,9 +40,11 @@ const serve = (data, req, res) => {
   serializer([data, req, res], (ser) => serve(ser, req, res));
 };
 
-http.createServer((req, res) => {
-  const data = routing[req.url];
-  serve(data, req, res);
-}).listen(PORT);
+http
+  .createServer((req, res) => {
+    const data = routing[req.url];
+    serve(data, req, res);
+  })
+  .listen(PORT);
 
 setInterval(() => user.age++, 2000);
