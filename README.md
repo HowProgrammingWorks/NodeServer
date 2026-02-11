@@ -1,5 +1,6 @@
 # Node HTTP Server Examples
-[![HTTP сервер на Node.js (routing, cluster, IP sticky)](https://img.youtube.com/vi/7Ufxj0oTaUo/0.jpg)](https://www.youtube.com/watch?v=7Ufxj0oTaUo)
+
+[![Node.js intro (routing, cluster, IP sticky)](https://img.youtube.com/vi/mRvzgBGLVyM/0.jpg)](https://www.youtube.com/watch?v=mRvzgBGLVyM)
 
 Basic http server
 - Example from documentations: [basic-classic](basic-classic)
@@ -21,3 +22,5 @@ Examples with `express` framework
 
 Examples with Impress Application Server
 - Simple application: [impress-simple](impress-simple)
+
+[![HTTP сервер на Node.js (routing, cluster, IP sticky)](https://img.youtube.com/vi/7Ufxj0oTaUo/0.jpg)](https://www.youtube.com/watch?v=7Ufxj0oTaUo)
